@@ -1,0 +1,107 @@
+* {
+    margin: unset;
+    padding: unset;
+}
+
+.cuadro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #f9f2f2;
+    padding: 25px;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 20px black;
+    margin: 30px;
+}
+
+.centrar-verticalmente {
+    text-align: center;
+}
+
+.cuadroTexto {
+    width: 200%;
+    padding: 5px;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.texto-arriba {
+    margin-bottom: 1px;
+    text-align: left;
+    font-size: 25px;
+}
+
+.mi-boton-container, .boton-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex: 1px;
+}
+
+.mi-boton, .boton {
+    background: linear-gradient(45deg, black, red);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.boton {
+    background: linear-gradient(45deg, black, #0056b3);
+    margin: 25px;
+}
+
+.piramide-container, .numeross-ruta {
+    text-align: center;
+}
+
+.piramide {
+    display: inline-block;
+    position: relative;
+    margin-top: 20px;
+}
+
+.nivel {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.cuadro-piramide {
+    width: 25px;
+    height: 25px;
+    background-color: #007bff;
+    margin: 2px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    border: 2px solid black;
+}
+
+.cuadro-piramide.resaltado-mejor {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.numeros-ruta {
+    display: flex;
+    align-items: stretch;
+    margin: 20px;
+    padding: 20px;
+}
+
+.numero-ruta {
+    border: 2px solid #000;
+    padding: 5px;
+    background: green;
+    color: #ffffff;
+}
+
