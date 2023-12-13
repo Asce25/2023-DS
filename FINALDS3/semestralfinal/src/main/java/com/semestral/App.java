@@ -110,22 +110,18 @@ public class App {
     }
 
     private static ResultadoPiramide calcularRutaMasAlta(int[][] niveles) {
-        // Lógica para calcular la ruta más alta según tu implementación actual
-        // ...
-
-        // Aquí se retorna un ejemplo simple
+      
         int mejorSuma = 0;
         Ruta mejorRuta = new Ruta();
         for (int nivel = niveles.length - 1; nivel >= 0; nivel--) {
-            // ... Lógica de cálculo ...
+            .
         }
 
         return new ResultadoPiramide(mejorRuta, mejorSuma);
     }
 
     private static void resaltarMejorRuta(Ruta ruta, int[][] piramideArray) {
-        // Lógica para resaltar la mejor ruta en la interfaz de usuario
-        // ...
+       
     }
 
     private static class ResultadoPiramide {
@@ -139,8 +135,7 @@ public class App {
     }
 
     private static class Ruta {
-        // Implementación de la clase Ruta según tus necesidades
-        // ...
+      
     }
 }
 
