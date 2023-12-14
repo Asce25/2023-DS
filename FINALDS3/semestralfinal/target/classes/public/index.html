@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Semestral</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="menu">
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="estudiante.html">Estudiante</a></li>
+            <li><a href="piramides.html">Piramide</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>GENERADOR DE PIRAMIDE</h1>
+        </div>
+
+        <div class="cuadro">
+            <p class="texto-arriba">Tamaño</p>
+            <div class="centrar-verticalmente">
+                <input type="number" class="cuadroTexto" placeholder="Escribe un número" id="miCuadroTexto" min="1" max="50">
+            </div>
+            <div class="mi-boton-container">
+                <button class="mi-boton" id="miBoton">Calcular</button>
+                <button id="botonGuardar">Guardar Pirámide</button>
+            </div>
+        </div>
+
+        <div class="boton-container">
+            <br>
+            <button onclick="borrar()" class="boton" id="borrarBoton">Borrar Contenido y Caché</button>
+        </div>
+
+        <div class="piramide-container">
+            <div class="piramide" id="miPiramide"></div>
+            <div class="numeros-ruta" id="numeros-ruta"><br><br></div>
+        </div>
+        <button id="mostrarPiramides">Mostrar Pirámides Guardadas</button>
+        <div id="botonesPiramides"></div>
+    </div>
+    <script>document.addEventListener("DOMContentLoaded", function() {
+        const inicio = new Date().getTime();
+        var cuadroTexto = document.getElementById("miCuadroTexto");
+        var piramide = document.getElementById("miPiramide");
+        var piramidesGuardadas = [];
+        var contadorPiramides = 1;
+    
+        cuadroTexto.addEventListener("change", function() {
+            var valor = parseInt(cuadroTexto.value);
+            if (!isNaN(valor) && valor > 0 && valor <= 50) {
+                crearPiramide(valor);
+            } else {
+                alert("El valor máximo para el tamaño de la pirámide debe ser de 50");
+            }
+        });
+    
+        document.getElementById("miBoton").addEventListener("click", function() {
+            alert("¡Botón clicado! Valor del cuadro de texto: " + cuadroTexto.value);
+        });
+    
+        document.getElementById("botonGuardar").addEventListener("click", function() {
+            guardarPiramide();
+        });
+    
+        function guardarPiramide() {
+            var infoPiramide = {
+                niveles: parseInt(cuadroTexto.value),
+                ruta: [],
+                mejorSuma: 0,
+                numerosSumaMaxima: [],
+                piramideArray: []
+            };
+    
+            var niveles = infoPiramide.niveles;
+            for (var i = 0; i < niveles; i++) {
+                var fila = [];
+                for (var j = 0; j <= i; j++) {
+                    var numeroAleatorio = Math.floor(Math.random() * 100);
+                    fila.push(numeroAleatorio);
+                }
+                infoPiramide.piramideArray.push(fila);
+            }
+    
+            piramidesGuardadas.push(infoPiramide);
+            generarBotonPiramide(infoPiramide);
+            
+            // Mostrar la pirámide, ruta y suma antes de guardarla
+            mostrarPiramideGuardada(infoPiramide);
+        }
+    
+        function generarBotonPiramide(infoPiramide) {
+            var button = document.createElement("button");
+            button.innerText = "Pirámide #" + contadorPiramides;
+            button.addEventListener("click", function() {
+                mostrarPiramideGuardada(infoPiramide);
+            });
+    
+            var buttonContainer = document.getElementById("botonesPiramides");
+            buttonContainer.appendChild(button);
+    
+            contadorPiramides++;
+        }
+    
+        function mostrarPiramideGuardada(infoPiramide) {
+            mostrarPiramide(infoPiramide.piramideArray, infoPiramide.ruta);
+            alert("La ruta con el peso más alto tiene una suma de: " + infoPiramide.mejorSuma);
+        }
+    
+        function mostrarPiramide(piramideArray, ruta) {
+            piramide.innerHTML = "";
+    
+            for (var i = 0; i < piramideArray.length; i++) {
+                var nivel = document.createElement("div");
+                nivel.classList.add("nivel");
+    
+                for (var j = 0; j < piramideArray[i].length; j++) {
+                    var cuadro = document.createElement("div");
+                    cuadro.classList.add("cuadro-piramide");
+    
+                    cuadro.innerText = piramideArray[i][j];
+    
+                    nivel.appendChild(cuadro);
+                }
+    
+                piramide.appendChild(nivel);
+            }
+    
+            resaltarMejorRuta(ruta);
+        }
+    
+        function resaltarMejorRuta(ruta) {
+            var cuadros = document.querySelectorAll(".cuadro-piramide");
+            cuadros.forEach(function(cuadro) {
+                cuadro.classList.remove("resaltado-mejor");
+            });
+    
+            ruta.forEach(function(coordenadas) {
+                var [nivel, indice] = coordenadas;
+                var cuadro = cuadros[nivel * (nivel + 1) / 2 + indice];
+                cuadro.classList.add("resaltado-mejor");
+            });
+        }
+    
+        document.getElementById("borrarBoton").addEventListener("click", function() {
+            cuadroTexto.value = "";
+            piramide.innerHTML = "";
+            document.querySelector(".numeros-ruta").innerHTML = "";
+        });
+    
+        document.getElementById("mostrarPiramides").addEventListener("click", function() {
+            mostrarPiramidesGuardadas();
+        });
+    
+        function crearPiramide(niveles) {
+            var piramideArray = [];
+            for (var i = 0; i < niveles; i++) {
+                var fila = [];
+                for (var j = 0; j <= i; j++) {
+                    var numeroAleatorio = Math.floor(Math.random() * 100);
+                    fila.push(numeroAleatorio);
+                }
+                piramideArray.push(fila);
+            }
+    
+            var resultado = calcularRutaMasAlta(piramideArray);
+            mostrarPiramide(piramideArray, resultado.ruta);
+    
+            var infoPiramide = {
+                niveles: niveles,
+                ruta: resultado.ruta,
+                mejorSuma: resultado.mejorSuma,
+                numerosSumaMaxima: resultado.numerosSumaMaxima,
+                piramideArray: piramideArray
+            };
+            piramidesGuardadas.push(infoPiramide);
+            generarBotonPiramide(infoPiramide);
+    
+            alert("La ruta con el peso más alto tiene una suma de: " + resultado.mejorSuma);
+        }
+    
+        function mostrarPiramidesGuardadas() {
+            piramidesGuardadas.forEach(function(infoPiramide) {
+                generarBotonPiramide(infoPiramide);
+            });
+        }
+    
+        const tiempoTranscurrido = new Date().getTime() - inicio;
+        console.log("Tiempo estimado (ms):", tiempoTranscurrido);
+    });
+    
+    function borrar() {
+        var piramide = document.getElementById("miPiramide");
+        var cuadroTexto = document.getElementById("miCuadroTexto");
+        var rutas = document.getElementById("numeros-ruta");
+    
+        if (piramide) {
+            piramide.innerHTML = "";
+        }
+        if (cuadroTexto) {
+            cuadroTexto.value = "";
+        }
+        if (rutas) {
+            rutas.innerHTML = "";
+        }
+    }
+     </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
